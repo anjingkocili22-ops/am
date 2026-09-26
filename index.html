@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="theme-color" content="#0a0e1c" />
+<meta name="description" content="AMP Premium Activation — ArtexAM-byTsuneyuki" />
+<title>AMP Premium — ArtexAM-byTsuneyuki</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-1: #0a0e1c;
+    --bg-2: #05070f;
+    --card: rgba(20, 25, 45, 0.92);
+    --border: rgba(120, 140, 255, 0.25);
+    --text: #e8ecff;
+    --muted: #7a84b8;
+    --muted-2: #98a2d8;
+    --accent-1: #5c7bff;
+    --accent-2: #8a5cff;
+    --input-bg: #0c1020;
+    --input-border: #2a3454;
+    --ok-bg: #0f2a1a;
+    --ok-text: #7fe0a0;
+    --ok-border: #1d5c38;
+    --err-bg: #2a0f14;
+    --err-text: #ff9aa8;
+    --err-border: #5c1d28;
+    --info-bg: #0f1a2a;
+    --info-text: #9ab8ff;
+    --info-border: #1d335c;
+  }
+
+  html, body { height: 100%; }
+
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background:
+      radial-gradient(circle at 30% 15%, #1a1f3a 0%, transparent 55%),
+      radial-gradient(circle at 80% 85%, #2a1a3a 0%, transparent 55%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-2));
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 440px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 30px 26px 24px;
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.65),
+      0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  .logo-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 15px;
+    color: #fff;
+    letter-spacing: -0.5px;
+    box-shadow: 0 6px 20px rgba(92, 123, 255, 0.35);
+    flex-shrink: 0;
+  }
+
+  h1 {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+
+  .sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .brand {
+    color: #7ea2ff;
+    font-weight: 600;
+  }
+
+  label {
+    display: block;
+    font-size: 12px;
+    color: var(--muted-2);
+    margin-bottom: 8px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 13px 15px;
+    font-size: 14px;
+    background: var(--input-bg);
+    color: var(--text);
+    border: 1px solid var(--input-border);
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    font-family: inherit;
+  }
+
+  input:focus, textarea:focus {
+    border-color: var(--accent-1);
+    box-shadow: 0 0 0 3px rgba(92, 123, 255, 0.15);
+  }
+
+  input::placeholder, textarea::placeholder { color: #4a5480; }
+
+  textarea {
+    min-height: 96px;
+    resize: vertical;
+    font-family: 'SF Mono', 'Consolas', 'Menlo', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 14px;
+    padding: 13px;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+    letter-spacing: 0.2px;
+  }
+
+  button:hover:not(:disabled) { opacity: 0.92; }
+  button:active:not(:disabled) { transform: scale(0.985); }
+  button:disabled { opacity: 0.5; cursor: wait; }
+
+  button.secondary {
+    background: #232a44;
+    color: var(--muted-2);
+    font-weight: 500;
+  }
+
+  button.secondary:hover:not(:disabled) {
+    background: #2c3556;
+    opacity: 1;
+  }
+
+  .step { display: none; }
+  .step.active { display: block; animation: fadeIn 0.25s ease; }
+
+  .status {
+    margin-top: 14px;
+    padding: 11px 13px;
+    border-radius: 9px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    display: none;
+    word-break: break-word;
+  }
+
+  .status.show { display: block; }
+  .status.ok   { background: var(--ok-bg);   color: var(--ok-text);   border: 1px solid var(--ok-border); }
+  .status.err  { background: var(--err-bg);  color: var(--err-text);  border: 1px solid var(--err-border); }
+  .status.info { background: var(--info-bg); color: var(--info-text); border: 1px solid var(--info-border); }
+
+  .order {
+    margin-top: 14px;
+    padding: 15px;
+    background: #0a0e1c;
+    border: 1px dashed #3a4a7a;
+    border-radius: 9px;
+    font-family: 'SF Mono', 'Consolas', 'Menlo', monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #a8c0ff;
+    word-break: break-all;
+    display: none;
+  }
+
+  .order.show { display: block; animation: fadeIn 0.3s ease; }
+
+  .order .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .order .key { color: #6a7ab0; flex-shrink: 0; }
+  .order .val { color: #c8d4ff; text-align: right; word-break: break-all; }
+
+  .footer {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(120, 140, 255, 0.1);
+    font-size: 11px;
+    color: #4a5480;
+    text-align: center;
+    letter-spacing: 0.3px;
+  }
+
+  .spinner {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: -2px;
+    margin-right: 6px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 480px) {
+    .card { padding: 24px 20px 20px; border-radius: 16px; }
+    h1 { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo">
+    <div class="logo-mark">AM</div>
+    <h1>AMP Premium</h1>
+  </div>
+  <div class="sub">
+    Custom Order ID: <span class="brand">ArtexAM-byTsuneyuki</span>
+  </div>
+
+  <!-- STEP 1: email input -->
+  <div class="step active" id="step1">
+    <label for="email">Email Address</label>
+    <input
+      type="email"
+      id="email"
+      placeholder="you@gmail.com"
+      autocomplete="email"
+      inputmode="email"
+      spellcheck="false"
+    />
+    <button id="btnSend" type="button">Send Magic Link</button>
+    <div class="status" id="s1"></div>
+  </div>
+
+  <!-- STEP 2: magic link paste -->
+  <div class="step" id="step2">
+    <label for="link">Paste Magic Link from your email</label>
+    <textarea
+      id="link"
+      placeholder="https://alight-creative.firebaseapp.com/__/auth/links?link=..."
+      spellcheck="false"
+      autocomplete="off"
+    ></textarea>
+    <button id="btnVerify" type="button">Verify &amp; Activate</button>
+    <button id="btnBack" type="button" class="secondary">Back</button>
+    <div class="status" id="s2"></div>
+    <div class="order" id="orderBox"></div>
+  </div>
+
+  <div class="footer">
+    Alight Motion Premium Activation
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var sessionId = null;
+
+  function setStatus(el, type, msg, withSpinner) {
+    el.className = 'status show ' + type;
+    el.innerHTML = withSpinner
+      ? '<span class="spinner"></span>' + escapeHtml(msg)
+      : escapeHtml(msg);
+  }
+
+  function clearStatus(el) {
+    el.className = 'status';
+    el.textContent = '';
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function showStep(n) {
+    $('step1').classList.toggle('active', n === 1);
+    $('step2').classList.toggle('active', n === 2);
+  }
+
+  // ---------- STEP 1: SEND ----------
+  $('btnSend').addEventListener('click', async function () {
+    var btn = this;
+    var email = $('email').value.trim().toLowerCase();
+    var s = $('s1');
+    clearStatus(s);
+
+    if (!email) {
+      setStatus(s, 'err', 'Email address is required.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setStatus(s, 'err', 'Invalid email format.');
+      return;
+    }
+
+    btn.disabled = true;
+    setStatus(s, 'info', 'Sending magic link...', true);
+
+    try {
+      var r = await fetch('/api/send', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      });
+
+      var j = await r.json().catch(function () { return {}; });
+
+      if (!r.ok || !j.ok) {
+        throw new Error(j.message || ('HTTP ' + r.status));
+      }
+
+      sessionId = j.sessionId;
+
+      setStatus(s, 'ok', 'Magic link sent to ' + email + '. Check your inbox (and spam folder).');
+      showStep(2);
+      setTimeout(function () { $('link').focus(); }, 200);
+    } catch (e) {
+      setStatus(s, 'err', 'Failed: ' + (e.message || 'unknown error'));
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  // ---------- STEP 2: VERIFY ----------
+  $('btnVerify').addEventListener('click', async function () {
+    var btn = this;
+    var link = $('link').value.trim();
+    var s = $('s2');
+    var box = $('orderBox');
+
+    clearStatus(s);
+    box.classList.remove('show');
+    box.innerHTML = '';
+
+    if (!link) {
+      setStatus(s, 'err', 'Paste the magic link first.');
+      return;
+    }
+    if (!sessionId) {
+      setStatus(s, 'err', 'Session expired. Please go back and re-send the magic link.');
+      return;
+    }
+
+    btn.disabled = true;
+    setStatus(s, 'info', 'Verifying and activating premium...', true);
+
+    try {
+      var r = await fetch('/api/verify', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ sessionId: sessionId, link: link })
+      });
+
+      var j = await r.json().catch(function () { return {}; });
+
+      if (!r.ok || !j.ok) {
+        throw new Error(j.message || ('HTTP ' + r.status));
+      }
+
+      setStatus(s, 'ok', 'Premium activated for ' + j.email);
+
+      var validUntil = j.validUntil
+        ? new Date(j.validUntil).toLocaleDateString('id-ID', {
+            day: 'numeric', month: 'long', year: 'numeric'
+          })
+        : '-';
+
+      box.innerHTML =
+        '<div class="row"><span class="key">Status</span><span class="val">' + escapeHtml(j.status) + '</span></div>' +
+        '<div class="row"><span class="key">Email</span><span class="val">' + escapeHtml(j.email) + '</span></div>' +
+        '<div class="row"><span class="key">Order ID</span><span class="val">' + escapeHtml(j.orderId) + '</span></div>' +
+        '<div class="row"><span class="key">Valid until</span><span class="val">' + escapeHtml(validUntil) + '</span></div>';
+
+      box.classList.add('show');
+
+      sessionId = null;
+      btn.disabled = true;
+    } catch (e) {
+      setStatus(s, 'err', 'Verification failed: ' + (e.message || 'unknown error'));
+      btn.disabled = false;
+    }
+  });
+
+  // ---------- BACK ----------
+  $('btnBack').addEventListener('click', function () {
+    sessionId = null;
+    clearStatus($('s1'));
+    clearStatus($('s2'));
+    $('orderBox').classList.remove('show');
+    $('orderBox').innerHTML = '';
+    $('link').value = '';
+    $('btnVerify').disabled = false;
+    showStep(1);
+  });
+
+  // ---------- UX: enter to submit ----------
+  $('email').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') $('btnSend').click();
+  });
+
+  // ---------- UX: clear error on input ----------
+  $('link').addEventListener('input', function () {
+    if ($('s2').classList.contains('err')) clearStatus($('s2'));
+  });
+
+})();
+</script>
+
+</body>
+  </html>
